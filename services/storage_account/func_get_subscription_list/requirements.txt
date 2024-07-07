@@ -1,0 +1,11 @@
+azure-functions
+azure-mgmt-subscription
+azure-mgmt-resource
+azure.identity
+azure.data.tables
+azure-keyvault-secrets
+black
+pandas
+pytest
+pytest-cov
+python-dotenv

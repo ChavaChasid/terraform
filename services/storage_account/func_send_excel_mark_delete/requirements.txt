@@ -1,0 +1,13 @@
+pytest
+black
+python-dotenv
+azure.data.tables
+azure.core
+azure.identity
+azure.mgmt.storage
+azure.mgmt.monitor
+azure-keyvault-secrets
+pandas
+pytest-cov
+openpyxl
+azure.storage.blob

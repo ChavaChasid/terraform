@@ -1,0 +1,37 @@
+name: "🚀 Deploy storage-automation logic-app"
+
+on:
+  workflow_dispatch:
+    inputs:
+      storagesResourceGroupName:
+        description: "storages resource group name"
+        required: true
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: 📂 Checkout repository
+      uses: actions/checkout@main
+      
+    - name: 🔑 Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+    - name: 🚀 Run ARM deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ inputs.storagesResourceGroupName }}
+        template: ./logic_app_templates/template.json
+        parameters: 
+          ./logic_app_templates/template.parameters.json
+          sites_func_get_last_fetch_time_for_each_storage_account_externalid="/subscriptions/${{ secrets.AZURE_SUBSCRIPTION }}/resourceGroups/${{ inputs.storagesResourceGroupName }}/providers/Microsoft.Web/sites/func-get-last-fetch-time-for-each-storage-account"
+          sites_func_get_storage_list_by_subscription_externalid="/subscriptions/${{ secrets.AZURE_SUBSCRIPTION }}/resourceGroups/${{ inputs.storagesResourceGroupName }}/providers/Microsoft.Web/sites/func-get-storage-list-by-subscription"
+          sites_func_get_subscription_list_externalid="/subscriptions/${{ secrets.AZURE_SUBSCRIPTION }}/resourceGroups/${{ inputs.storagesResourceGroupName }}/providers/Microsoft.Web/sites/func-get-subscription-list"
+          sites_func_send_excel_mark_delete_externalid="/subscriptions/${{ secrets.AZURE_SUBSCRIPTION }}/resourceGroups/${{ inputs.storagesResourceGroupName }}/providers/Microsoft.Web/sites/func-send-excel-mark-delete"
+          sites_func_check_storage_externalid="/subscriptions/${{ secrets.AZURE_SUBSCRIPTION }}/resourceGroups/${{ inputs.storagesResourceGroupName }}/providers/Microsoft.Web/sites/func-check-storage"

@@ -1,0 +1,7 @@
+azure-functions
+pytest==7.4.2
+black==23.11.0
+python-dotenv==1.0.0
+pytest-cov
+adal
+requests

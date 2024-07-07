@@ -1,0 +1,5 @@
+azure-functions
+azure-cli
+python-dotenv
+requests
+msal

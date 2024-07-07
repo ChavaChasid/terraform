@@ -1,0 +1,48 @@
+name: 🧪 Run Python tests
+
+on:
+  push:
+    branches: 
+      - main
+      - development
+      - feature/*
+    paths: 
+      - services/**
+      - '.github/workflows/test-functions-service.yaml'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./services
+    strategy:
+      matrix:
+        python-version: ['3.10.13']
+        
+    steps:
+    - name: 📂 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🐍 Set up Python 3.10.13
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: 🐍 Export environment
+      run: |
+        export CONTAINER=TEST
+
+    - name: ⏬ Install dependencies
+      run: |
+          pip install -r requirements.txt
+
+    - name: ✅ Run tests
+      run: |
+        DIRS=($(ls -d */*/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]' | jq -r '.[]'))
+        for dir in "${DIRS[@]}"
+        do
+         pytest $dir
+        done
+        
