@@ -54,8 +54,7 @@ jobs:
         with:
           base_sha: ${{ steps.previous-success-deployment.outputs.sha }}
           json: true
-          files: |
-            ${{ env.WORKING_DIR }}/**
+          files: "${{ env.WORKING_DIR }}/*/"
           dir_names: true
           dir_names_max_depth: 3
           escape_json: false
