@@ -21,3 +21,5 @@ The code is automatically run using CI CD processes through workflow.
 ## Tests
 
 The code has undergone in-depth TEST tests with respect to end situations, the tests are also automatically run in the CI CD process through workflow.
+
+end.
