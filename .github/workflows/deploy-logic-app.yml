@@ -1,4 +1,4 @@
-# name: "🚀 Deploy storage-automation logic-app"
+name: "🚀 Deploy storage-automation logic-app"
 
 # on:
 #   workflow_dispatch:

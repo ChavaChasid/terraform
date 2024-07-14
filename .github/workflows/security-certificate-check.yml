@@ -1,4 +1,4 @@
-# name: Security Certificate Check
+name: Security Certificate Check
 
 # on:
 #   push:
