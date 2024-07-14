@@ -1,0 +1,22 @@
+name: Check Seat Count
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  seats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: austenstone/seat-count-action@v3
+        id: seats
+        with:
+          github-token: ${{secrets.TOKEN}}
+    outputs:
+      percentage: ${{steps.seats.outputs.percentage}}
+      remaining: ${{steps.seats.outputs.remaining}}
+  less-than-10:
+    needs: [seats]
+    if: needs.seats.outputs.remaining < 10
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
